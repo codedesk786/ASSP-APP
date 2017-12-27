@@ -279,6 +279,43 @@ namespace ASSP_APP.Controllers
             public Meta meta { get; set; }
             public List<Datum> data { get; set; }
         }
+        [HttpPost]
+        public string Forgetpassword(FormCollection frmCollection)
+        {
+            string msgtype = "";
+            string email = frmCollection["email"];
+            LoginModel obj = ObjLoginModel.Where(u => u.Username == email).SingleOrDefault();
+            if (obj == null)
+            {
+                msgtype = "danger";
+            }
+            else
+            {
+                
+                //SendEmail objSendEmail = new SendEmail { Subject = "Password Recovery" };
+
+                //objSendEmail.ReceiverAddress = obj.UserName;
+                //string password = obj.Password;
+
+                //string htmlBody = string.Empty;
+                //string filePath = Server.MapPath(Url.Content("~/Content/Templates/ForgetPassword.txt"));
+
+                //using (System.IO.StreamReader sr = System.IO.File.OpenText(filePath))
+                //{
+                //    htmlBody = sr.ReadToEnd();
+                //    sr.Close();
+                //}
+                //htmlBody = htmlBody.Replace("{URL}", WebConfigurationManager.AppSettings["URL"] + "Content\\");
+                //htmlBody = htmlBody.Replace("{link}", WebConfigurationManager.AppSettings["URL"] + "home/login");
+                //htmlBody = htmlBody.Replace("{Name}", obj.FullName);
+                //htmlBody = htmlBody.Replace("{Email}", obj.UserName);
+                //htmlBody = htmlBody.Replace("{Password}", EncryptDecrypt.Decrypt(obj.Password, true));
+                //objSendEmail.Body = htmlBody;
+                //objSendEmail
+                msgtype = "success";
+            }
+            return msgtype;
+        }
 
     }
 

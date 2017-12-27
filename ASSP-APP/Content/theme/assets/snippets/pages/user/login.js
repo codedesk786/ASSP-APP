@@ -118,7 +118,7 @@ var SnippetLogin = function () {
 
 
     var handle2factSignInFormSubmit = function () {
-       
+
         $('#m_login2fact_signin_submit').click(function (e) {
             e.preventDefault();
             var btn = $(this);
@@ -198,7 +198,7 @@ var SnippetLogin = function () {
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '',
+                url: '/home/Forgetpassword',
                 success: function (response, status, xhr, $form) {
                     // similate 2s delay
                     setTimeout(function () {
@@ -222,7 +222,7 @@ var SnippetLogin = function () {
     var handleForgetPasswordFormSubmit = function () {
         $('#m_login_forget_password_submit').click(function (e) {
             e.preventDefault();
-
+            var postData = $('this').serialize();
             var btn = $(this);
             var form = $(this).closest('form');
 
@@ -242,22 +242,40 @@ var SnippetLogin = function () {
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             form.ajaxSubmit({
-                url: '',
+                url: '/home/ForgetPassword',
+                data: postData,
                 success: function (response, status, xhr, $form) {
                     // similate 2s delay
-                    setTimeout(function () {
-                        btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove 
-                        form.clearForm(); // clear form
-                        form.validate().resetForm(); // reset validation states
 
-                        // display signup form
-                        displaySignInForm();
-                        var signInForm = login.find('.m-login__signin form');
-                        signInForm.clearForm();
-                        signInForm.validate().resetForm();
+                    if (response == "error") {
+                        setTimeout(function () {
+                            btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
+                            showErrorMsg(form, 'danger', 'the email you enter is not exists.');
+                        }, 2000);
+                    }
+                    else if (response == "success") {
 
-                        showErrorMsg(signInForm, 'success', 'Cool! Password recovery instruction has been sent to your email.');
-                    }, 2000);
+
+                        setTimeout(function () {
+                            btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false); // remove 
+                            form.clearForm(); // clear form
+                            form.validate().resetForm(); // reset validation states
+
+
+                            // display signup form
+                            displaySignInForm();
+                            var signInForm = login.find('.m-login__signin form');
+                            signInForm.clearForm();
+                            signInForm.validate().resetForm();
+
+                            showErrorMsg(signInForm, 'success', 'Cool! Password recovery instruction has been sent to your email.');
+                        }, 2000);
+
+
+                    }
+
+
+
                 }
             });
         });
