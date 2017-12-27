@@ -42,88 +42,99 @@
                 <div class="m-stack m-stack--hor m-stack--desktop">
                     <div class="m-stack__item m-stack__item--fluid">
                         <div class="m-login__wrapper">
-                            @if (ViewBag.Status == null || !ViewBag.Status)
-                            {
-                                <div class="m-login__logo">
-                                    <a href="#">
-                                        <img src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/app/media/img//logos/logo-2.png">
-                                    </a>
+
+                            <div class="m-login__logo">
+                                <a href="#">
+                                    <img src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/app/media/img//logos/logo-2.png">
+                                </a>
+                            </div>
+
+                            <div class="m-login__signin singin">
+                                <div class="m-login__head">
+                                    <h3 class="m-login__title">
+                                        Sign In To Admin
+                                    </h3>
                                 </div>
-                               
-                                <div class="m-login__signin">
-                                    <div class="m-login__head">
-                                        <h3 class="m-login__title">
-                                            Sign In To Admin
-                                        </h3>
+
+                                <form class="m-login__form m-form" action="/home/login" method="post">
+                                    <div class="form-group m-form__group">
+                                        <input class="form-control m-input" type="text" id="UserName" placeholder="UserName" name="UserName" autocomplete="off">
+
+
                                     </div>
-                                    <div>@ViewBag.Message</div>
-                                    <form class="m-login__form m-form" action="/home/login" method="post">
-                                        <div class="form-group m-form__group">
-                                            <input class="form-control m-input" type="text" placeholder="Username" name="Username" autocomplete="off">
+                                    <div class="form-group m-form__group">
+                                        <input class="form-control m-input m-login__form-input--last" id="password" type="password" placeholder="password" name="password">
+                                    </div>
+                                    <div class="row m-login__form-sub">
+                                        <div class="col m--align-left">
+                                           
+
+                                            @if (Model.RememberMe)
+                                            {
 
 
-                                        </div>
-                                        <div class="form-group m-form__group">
-                                            <input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="Password">
-                                        </div>
-                                        <div class="row m-login__form-sub">
-                                            <div class="col m--align-left">
                                                 <label class="m-checkbox m-checkbox--focus">
-                                                    <input type="checkbox" name="remember">
+                                                    <input type="checkbox" name="RememberMe" checked="checked">
                                                     Remember me
                                                     <span></span>
                                                 </label>
-                                            </div>
-                                            <div class="col m--align-right">
-                                                <a href="javascript:;" id="m_login_forget_password" class="m-link">
-                                                    Forget Password ?
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="m-login__form-action">
-                                            @*<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
-                                                    Sign In
-                                                </button>*@
-                                            <input type="submit" value="  Sign In" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air" />
-                                        </div>
-                                    </form>
-                                </div>
-                            }
+                                            }
+                                            else
+                                            {
+                                                <label class="m-checkbox m-checkbox--focus">
+                                                    <input type="checkbox" name="RememberMe">
+                                                    Remember me
+                                                    <span></span>
+                                                </label>
+                                            }
 
-                            else
-                            {
 
-                                <div class="m-login__signin">
-                                    <div class="m-login__head">
-                                        <h3 class="m-login__title">
-                                            Sign In To Admin
-                                        </h3>
+                                        </div>
+                                        <div class="col m--align-right">
+                                            <a href="javascript:;" id="m_login_forget_password" class="m-link">
+                                                Forget Password ?
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div>@ViewBag.Message</div>
-                                    <div>
-                                        <img src="@ViewBag.BarcodeImageUrl" />
+                                    <div class="m-login__form-action">
+                                        <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+                                            Sign In
+                                        </button>
+                                        @*<input type="submit" value="  Sign In" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air" />*@
                                     </div>
-                                    <div>
-                                        Manual Setup Code : @ViewBag.SetupCode
-                                    </div>
-                                    <form class="m-login__form m-form" action="/home/Verify2FA">
-                                        <div class="form-group m-form__group">
-                                            <input class="form-control m-input" type="text" placeholder="passcode" name="passcode" autocomplete="off">
+                                </form>
+                            </div>
 
 
-                                        </div>
-                                        <div class="m-login__form-action">
-                                            @*<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
-                                                    Sign In
-                                                </button>*@
-                                            <input type="submit" value="  Sign In" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air" />
-                                        </div>
-                                    </form>
+
+                            <div class="m-login__signin 2fact" style="display:none;">
+                                <div class="m-login__head">
+                                    <h3 class="m-login__title">
+                                        You have 2 factor authentication enabled.
+                                        Please Enter Your Google Authenticator Six-Digit Code
+                                    </h3>
                                 </div>
 
+                                <form class="m-login__form m-form" action="" method="post">
+                                    <div class="form-group m-form__group">
+                                        <input class="form-control m-input" type="text" placeholder="Authenticator Six-Digit Code" name="passcode" autocomplete="off">
 
 
-                            }
+                                    </div>
+                                    <div class="m-login__form-action">
+                                        @*<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+                                                Sign In
+                                            </button>*@
+                                        <button id="m_login2fact_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+                                          Authenticate
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+
 
 
                             @*<div class="m-login__signup">
