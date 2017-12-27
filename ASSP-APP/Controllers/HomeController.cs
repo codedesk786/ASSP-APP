@@ -106,7 +106,7 @@ namespace ASSP_APP.Controllers
             return View();
         }
         [SessionExpire]
-        public ActionResult MyProfile()
+        public ActionResult profile()
         {
             if (Session["Username"] == null || Session["IsValid2FA"] == null || !(bool)Session["IsValid2FA"])
             {
@@ -122,8 +122,8 @@ namespace ASSP_APP.Controllers
             var token = frmcollection["passcode"];
             TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
             string UserUniqueKey = Session["UserUniqueKey"].ToString();
-            
-            bool isValid = tfa.ValidateTwoFactorPIN(UserUniqueKey, token);
+            TimeSpan obj = new TimeSpan();
+            bool isValid = tfa.ValidateTwoFactorPIN(UserUniqueKey, token, obj);
             if (isValid)
             {
                 Session["IsValid2FA"] = true;
