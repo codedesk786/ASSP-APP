@@ -167,7 +167,7 @@ namespace ASSP_APP.Controllers
             LoginModel objLogin2 = new LoginModel();
             objLogin2.Username = "admin1";
             objLogin2.Password = "123";
-            objLogin2.Enable2fact = true;
+            objLogin2.Enable2fact = false;
             ObjLoginModel.Add(objLogin2);
 
         }
