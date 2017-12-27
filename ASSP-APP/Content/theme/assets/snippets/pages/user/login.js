@@ -102,6 +102,7 @@ var SnippetLogin = function () {
                     else if (response == "enable2fact") {
                         $(".singin").hide();
                         $(".2fact").show();
+                        $(".passcode").focus();
 
                     }
 

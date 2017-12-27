@@ -10,6 +10,8 @@ namespace ASSP_APP.Controllers
     public class HomeController : Controller
     {
         private const string key = "qaz123!@@)(*";
+        List<Datum> objDatlist = new List<Datum>();
+        Meta objmeta = new Meta();
         public List<LoginModel> ObjLoginModel = new List<LoginModel>();
         public ActionResult Index()
         {
@@ -39,10 +41,18 @@ namespace ASSP_APP.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(LoginModel login)
+        public ActionResult Login(LoginModel login, FormCollection frm)
         {
             string message = "";
             bool status = false;
+            if (frm["RememberMe"] != null)
+            {
+                login.RememberMe = true;
+            }
+            else
+            {
+                login.RememberMe = false;
+            }
             PopulateUsers();
             var verifylog = ObjLoginModel.Where(c => c.Username == login.Username && c.Password == login.Password).SingleOrDefault();
             if (verifylog != null)
@@ -169,5 +179,105 @@ namespace ASSP_APP.Controllers
         }
 
 
+
+        public JsonResult LoadOrders(FormCollection frm)
+        {
+
+            LoadList();
+
+
+
+            objmeta.page = Convert.ToInt32(frm["datatable[pagination][page]"]);
+            objmeta.pages = objDatlist.ToList().Count / Convert.ToInt32(frm["datatable[pagination][perpage]"]);
+            objmeta.perpage = Convert.ToInt32(frm["datatable[pagination][perpage]"]);
+            objmeta.total = objDatlist.ToList().Count;
+            objmeta.sort = frm["datatable[sort][sort]"];
+            objmeta.field = frm["datatable[sort][field]"];
+            List<Datum> objjson = new List<Datum>();
+            if (objmeta.sort == "asc")
+            {
+                if (objmeta.field == "OrderID")
+                {
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.OrderID).ToList();
+                }
+                else if (objmeta.field == "ShipCountry")
+                {
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.ShipCountry).ToList();
+                }
+
+            }
+            else
+            {
+
+
+                if (objmeta.field == "OrderID")
+                {
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.OrderID).ToList();
+                }
+                else if (objmeta.field == "ShipCountry")
+                {
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.ShipCountry).ToList();
+                }
+            }
+
+
+            var jsonData = new
+            {
+                meta = objmeta,
+                data = objjson
+            };
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+
+
+        }
+
+
+
+        public void LoadList()
+        {
+
+            for (int i = 0; i < 25; i++)
+            {
+                Datum objDatum = new Datum();
+                objDatum.RecordID = i;
+                objDatum.OrderID = "order" + i;
+                objDatum.ShipCountry = i + "Pakistan";
+                objDatlist.Add(objDatum);
+
+            }
+
+
+
+
+
+
+        }
+
+        public class Meta
+        {
+            public int page { get; set; }
+            public int pages { get; set; }
+            public int perpage { get; set; }
+            public int total { get; set; }
+            public string sort { get; set; }
+            public string field { get; set; }
+        }
+
+
+        public class Datum
+        {
+            public int RecordID { get; set; }
+            public string OrderID { get; set; }
+            public string ShipCountry { get; set; }
+
+        }
+
+        public class RootObject
+        {
+            public Meta meta { get; set; }
+            public List<Datum> data { get; set; }
+        }
+
     }
+
 }

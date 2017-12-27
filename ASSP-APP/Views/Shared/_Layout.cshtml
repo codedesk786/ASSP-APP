@@ -45,23 +45,7 @@
                 Html.RenderPartial("_LeftMenu");
             }
             <!-- END: Left Aside -->
-            <div class="m-grid__item m-grid__item--fluid m-wrapper">
-                <!-- BEGIN: Subheader -->
-                <div class="m-subheader ">
-                    <div class="d-flex align-items-center">
-                        <div class="mr-auto">
-                            <h3 class="m-subheader__title ">
-                                Dashboard
-                            </h3>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- END: Subheader -->
-                <div class="m-content">
-                    @RenderBody()
-                </div>
-            </div>
+            @RenderBody()
         </div>
         <!-- end:: Body -->
         <!-- begin::Footer -->
@@ -86,7 +70,11 @@
     {
         <script src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/app/js/dashboard.js" type="text/javascript"></script>
     }
-   
+    else if (ViewBag.Title == "LoadOrders")
+    {
+        <script src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/demo/default/custom/components/datatables/base/data-ajax.js" type="text/javascript"></script>
+    }
+
     <!--end::Page Snippets -->
     @*@Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
