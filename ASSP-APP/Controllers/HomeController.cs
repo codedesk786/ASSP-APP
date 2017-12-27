@@ -43,6 +43,7 @@ namespace ASSP_APP.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel login, FormCollection frm)
         {
+
             string message = "";
             bool status = false;
             if (frm["RememberMe"] != null)
@@ -121,6 +122,7 @@ namespace ASSP_APP.Controllers
             var token = frmcollection["passcode"];
             TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
             string UserUniqueKey = Session["UserUniqueKey"].ToString();
+            
             bool isValid = tfa.ValidateTwoFactorPIN(UserUniqueKey, token);
             if (isValid)
             {
