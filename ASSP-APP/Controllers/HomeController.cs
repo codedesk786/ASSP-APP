@@ -32,9 +32,9 @@ namespace ASSP_APP.Controllers
                 RememberME = true;
             };
 
-            LoginModel objRegistration = new LoginModel();
+            User objRegistration = new User();
 
-            objRegistration.Username = UserName;
+            objRegistration.UserName = UserName;
             objRegistration.RememberMe = RememberME;
             return View(objRegistration);
         }
