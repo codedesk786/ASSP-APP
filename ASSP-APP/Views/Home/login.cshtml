@@ -3,7 +3,7 @@
     Layout = null;
 }
 @using System.Web.Configuration
-@model ASSP_APP.Models.LoginModel
+@model ASSP_APP.Models.User
 <!DOCTYPE html>
 <html lang="en">
 <!-- begin::Head -->
@@ -60,7 +60,7 @@
                                     <div class="form-group m-form__group">
                                        @* <input class="form-control m-input" type="text" id="UserName" placeholder="UserName" name="UserName" autocomplete="off">*@
 
-                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new {@class="form-control m-input" ,@id= "Username", @placeholder="UserName", @autocomplete="off"}
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new {@class="form-control m-input" ,@id= "Username", @placeholder="UserName", @autocomplete="off"}
                                    })
                                     </div>
                                     <div class="form-group m-form__group">

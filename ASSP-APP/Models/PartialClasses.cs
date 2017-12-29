@@ -11,8 +11,8 @@ namespace ASSP_APP.Models
     [MetadataType(typeof(UserMetaData))]
     public partial class User
     {
-
+        public bool RememberMe { get; set; }
     }
 
-    
+
 }

@@ -39,7 +39,7 @@ namespace ASSP_APP.Controllers
             return View(objRegistration);
         }
         [HttpPost]
-        public ActionResult Login(LoginModel login, FormCollection frm)
+        public ActionResult Login(User login, FormCollection frm)
         {
 
             string message = "";
@@ -53,17 +53,19 @@ namespace ASSP_APP.Controllers
                 login.RememberMe = false;
             }
             PopulateUsers();
-            var verifylog = ObjUserList.Where(c => c.UserName == login.Username && c.Password == login.Password).SingleOrDefault();
+            var verifylog = ObjUserList.Where(c => c.UserName == login.UserName && c.Password == login.Password).SingleOrDefault();
             if (verifylog != null)
             {
                 status = true; // show 2FA form
                 message = "2FA Verification";
-                Session["UserName"] = login.Username;
+                Session["UserName"] = login.UserName;
+                Session["RoleID"] = login.RolID;
+
                 if (login.RememberMe)
                 {
 
                     HttpCookie cookie = new HttpCookie("ASSP");
-                    cookie.Values.Add("UserName", login.Username);
+                    cookie.Values.Add("UserName", login.UserName);
                     cookie.Expires = DateTime.Now.AddDays(15);
                     Response.Cookies.Add(cookie);
                 }
@@ -76,7 +78,7 @@ namespace ASSP_APP.Controllers
 
                 //2FA Setup
                 TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
-                string UserUniqueKey = (login.Username + key); //as Its a demo, I have done this way. But you should use any encrypted value here which will be unique value per user.
+                string UserUniqueKey = (login.UserName + key); //as Its a demo, I have done this way. But you should use any encrypted value here which will be unique value per user.
                 Session["UserUniqueKey"] = UserUniqueKey;
                 //This is used for enable 2factor authentication
                 //var setupInfo = tfa.GenerateSetupCode("Dotnet Awesome", login.Username, UserUniqueKey, 300, 300);
