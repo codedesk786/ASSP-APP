@@ -37,7 +37,7 @@ var DatatableRemoteAjaxDemo = function () {
             sortable: true,
 
             // column based filtering
-            filterable: false,
+            filterable: true,
 
             pagination: true,
 
@@ -54,23 +54,23 @@ var DatatableRemoteAjaxDemo = function () {
                 // sortable: 'asc', // default sort
                 filterable: false, // disable or enable filtering
                 width: 150,
-                },
-                {
+            },
+            {
                 field: "BPName",
                 title: "BP Name",
                 width: 150,
-                
+
             },
             {
                 field: "Configuration",
                 title: "Configuration",
                 width: 150,
 
-                },
-                {
-                    field: "ServiceLocationAddress",
-                    title: "Service Location Address",
-                    width: 150,
+            },
+            {
+                field: "ServiceLocationAddress",
+                title: "Service Location Address",
+                width: 150,
 
             },
             {
@@ -78,11 +78,11 @@ var DatatableRemoteAjaxDemo = function () {
                 title: "Order Date",
                 width: 150,
 
-                },
-                {
-                    field: "EstimatedStartDate",
-                    title: "Estimated Start Date",
-                    width: 150,
+            },
+            {
+                field: "EstimatedStartDate",
+                title: "Estimated Start Date",
+                width: 150,
 
             },
             {
@@ -90,11 +90,11 @@ var DatatableRemoteAjaxDemo = function () {
                 title: "Estimated EndDate",
                 width: 150,
 
-                },
-                {
-                    field: "Duration",
-                    title: "Duration",
-                    width: 150,
+            },
+            {
+                field: "Duration",
+                title: "Duration",
+                width: 150,
 
             },
             {
@@ -102,23 +102,29 @@ var DatatableRemoteAjaxDemo = function () {
                 title: "Actual StartDate",
                 width: 150,
 
-                },
-                {
-                    field: "ActualFinishDate",
-                    title: "Actual Finish Date",
-                    width: 150,
+            },
+            {
+                field: "ActualFinishDate",
+                title: "Actual Finish Date",
+                width: 150,
 
             },
+
+
             {
                 field: "OrderStatus",
                 title: "Order Status",
-                width: 150,
+                // callback function support for column rendering
+                template: function (row) {
 
-                },
-                {
-                    field: "ReasonforIntruption",
-                    title: "Reason for Intruption",
-                    width: 150,
+
+                    return '<span class="m-badge ' + StatusClasses(row["OrderStatus"]) + ' m-badge--wide">' + row["OrderStatus"] + '</span>';
+                }
+            },
+            {
+                field: "ReasonforIntruption",
+                title: "Reason for Intruption",
+                width: 150,
 
             },
             {
@@ -126,11 +132,11 @@ var DatatableRemoteAjaxDemo = function () {
                 title: "Expected Delivery Date",
                 width: 150,
 
-                },
-                {
-                    field: "ServiceDepartment",
-                    title: "Service Department",
-                    width: 150,
+            },
+            {
+                field: "ServiceDepartment",
+                title: "Service Department",
+                width: 150,
 
             },
             {
@@ -138,11 +144,11 @@ var DatatableRemoteAjaxDemo = function () {
                 title: "Service Engineer",
                 width: 150,
 
-                },
-                {
-                    field: "ServiceManager",
-                    title: "Service Manager",
-                    width: 150,
+            },
+            {
+                field: "ServiceManager",
+                title: "Service Manager",
+                width: 150,
 
             },
             {
@@ -154,7 +160,24 @@ var DatatableRemoteAjaxDemo = function () {
 
             ]
         });
+        function StatusClasses(status) {
+            if (status == 'Pending') {
+                return "m-badge--brand";
+            }
+            else if (status == 'Delivered') {
+                return "m-badge--metal";
+            }
+            else if (status == 'Canceled') {
+                return "m-badge--primary";
+            }
+            else if (status == 'Success') {
+                return "m-badge--success";
+            }
+            else if (status == 'Info') {
+                return "m-badge--info";
+            }
 
+        }
         var query = datatable.getDataSourceQuery();
 
         $('#m_form_search').on('keyup', function (e) {
@@ -169,11 +192,11 @@ var DatatableRemoteAjaxDemo = function () {
         $('#m_form_status').on('change', function () {
             // shortcode to datatable.getDataSourceParam('query');
             var query = datatable.getDataSourceQuery();
-            query.Status = $(this).val().toLowerCase();
+            query.OrderStatus = $(this).val().toLowerCase();
             // shortcode to datatable.setDataSourceParam('query', query);
             datatable.setDataSourceQuery(query);
             datatable.load();
-        }).val(typeof query.Status !== 'undefined' ? query.Status : '');
+        }).val(typeof query.Status !== 'undefined' ? query.OrderStatus : '');
 
 
 
@@ -188,6 +211,7 @@ var DatatableRemoteAjaxDemo = function () {
 
         $('#m_form_status, #m_form_type').selectpicker();
 
+
     };
 
     return {
@@ -199,5 +223,8 @@ var DatatableRemoteAjaxDemo = function () {
 }();
 
 jQuery(document).ready(function () {
+   
     DatatableRemoteAjaxDemo.init();
+
+    
 });
