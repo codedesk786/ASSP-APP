@@ -14,12 +14,6 @@ namespace ASSP_APP.Models
         public bool RememberMe { get; set; }
         public bool Enable2fact { get; set; }
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7f361729336fc9a88fcea07a5618e1092972419d
-       
+ 
     }
 }
