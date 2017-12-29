@@ -59,7 +59,7 @@ namespace ASSP_APP.Controllers
                 status = true; // show 2FA form
                 message = "2FA Verification";
                 Session["UserName"] = login.UserName;
-                Session["RoleID"] = login.RolID;
+                Session["RoleID"] = verifylog.RolID;
 
                 if (login.RememberMe)
                 {
@@ -177,6 +177,7 @@ namespace ASSP_APP.Controllers
             User objLogin2 = new User();
             objLogin2.UserName = "BP0000002";
             objLogin2.Password = "123";
+            objLogin.RolID = 2;
             objLogin2.TwoFactor = false;
             ObjUserList.Add(objLogin2);
 

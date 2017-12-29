@@ -91,6 +91,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -187,9 +189,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ASSP.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ASSP.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ASSP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ASSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ASSP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ASSP.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MetaData.cs" />
     <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>ASSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>ASSP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +371,7 @@
     <Content Include="Content\theme\assets\demo\demo2\media\img\logo\favicon.ico" />
     <Content Include="Content\theme\assets\demo\demo2\media\img\logo\logo.png" />
     <Content Include="Content\theme\assets\snippets\pages\user\login.js" />
+    <Content Include="Content\theme\assets\snippets\pages\user\Profile.js" />
     <Content Include="Content\theme\assets\vendors\base\fonts\flaticon\Flaticon.svg" />
     <Content Include="Content\theme\assets\vendors\base\fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="Content\theme\assets\vendors\base\fonts\line-awesome\line-awesome.svg" />
@@ -473,6 +497,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ASSP.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ASSP.edmx</DependentUpon>
+      <LastGenOutput>ASSP.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ASSP.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ASSP.edmx</DependentUpon>
+      <LastGenOutput>ASSP.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -500,6 +534,13 @@
     <Content Include="Content\theme\assets\vendors\base\fonts\summernote\summernote.eot" />
     <Content Include="Content\theme\assets\vendors\base\fonts\summernote\summernote.ttf" />
     <Content Include="Content\theme\assets\vendors\base\fonts\summernote\summernote.woff" />
+    <EntityDeploy Include="Models\ASSP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ASSP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ASSP.edmx.diagram">
+      <DependentUpon>ASSP.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -549,6 +590,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
