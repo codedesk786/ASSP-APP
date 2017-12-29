@@ -59,7 +59,7 @@ var SnippetProfile = function () {
             if (!form.valid()) {
                 return;
             }
-            var postData = { 'FullName': $("#FullName").val(), 'UserName': $("#UserName").val(), 'Password': $("#Password").val(), 'Address': $("#Address").val(), 'RoleID': $('input[name=rbtn]:checked').val() };
+            var postData = $('this').serialize();
 
             form.ajaxSubmit({
                 url: '/User/InsertUser',

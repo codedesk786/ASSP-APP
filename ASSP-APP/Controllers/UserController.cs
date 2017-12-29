@@ -17,24 +17,21 @@ namespace ASSP_APP.Controllers
         public ActionResult adduser()
 
         {
-            ViewBag.RadioButtonValues = db.Roles.Select(r => r.RoleName).ToList();
+            ViewBag.RadioButtonValues = db.Roles.ToList();
 
             return View();
         }
-        public ActionResult InsertUser(string FullName, string UserName,string Password,string Address,int RoleID)
+        public ActionResult InsertUser(User user)
         {
-            if(RoleID != null)
+            if (ModelState.IsValid)
             {
-                User objUser = new User();
-                objUser.FullName = FullName;
-                objUser.UserName = UserName;
-                objUser.Password = Password;
-                objUser.Address1 = Address;
-              
-                db.Users.Add(objUser);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
+
+
             return View();
         }
     }

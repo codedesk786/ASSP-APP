@@ -39,7 +39,7 @@
                                     <label class="">
                                         User Name:
                                     </label>
-                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control m-input", @id = "UserName", @placeholder = "Enter user name" } })
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control m-input", @id = "UserName", @placeholder = "Enter user name" } })
                                     <span class="m-form__help">
                                         Please enter user name
                                     </span>
@@ -75,17 +75,14 @@
                                         User Group:
                                     </label>
                                     <div class="m-radio-inline">
-                                        @{
-                                            List<string> rbValues = (List<string>)ViewBag.RadioButtonValues;
-                                        }
-                                        @foreach (string val in rbValues)
+                                        @foreach (var val in ViewBag.RadioButtonValues)
                                         {
                                             <label class="m-radio m-radio--solid">
-                                                @Html.RadioButtonFor(model => model.Role, false) @val
+                                                <input type="radio"  name="RoleID" value="@val.RoleID">
+                                                @val.RoleName
                                                 <span></span>
                                             </label>
                                         }
-
                                     </div>
                                     <span class="m-form__help">
                                         Please select user group
