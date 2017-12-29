@@ -174,10 +174,19 @@ namespace ASSP_APP.Controllers
             objLogin.TwoFactor = true;
             ObjUserList.Add(objLogin);
 
+
+
+            User objLoginUserAdmin = new User();
+            objLoginUserAdmin.UserName = "Admin";
+            objLoginUserAdmin.Password = "admin";
+            objLoginUserAdmin.RolID = 1;
+            objLoginUserAdmin.TwoFactor = false;
+            ObjUserList.Add(objLoginUserAdmin);
+
             User objLogin2 = new User();
-            objLogin2.UserName = "BP0000002";
+            objLogin2.UserName = "BP000002";
             objLogin2.Password = "123";
-            objLogin.RolID = 2;
+            objLogin2.RolID = 2;
             objLogin2.TwoFactor = false;
             ObjUserList.Add(objLogin2);
 
@@ -275,11 +284,16 @@ namespace ASSP_APP.Controllers
         public void LoadList()
         {
 
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < 10; i++)
             {
                 DummyData objDummyData = new DummyData();
-                objDummyData.ServiceOrders = "Ser000" + i;
+                if (i == 1)
+                {
+                    objDummyData.UserName = "Admin";
+                }
 
+
+                objDummyData.ServiceOrders = "Ser000" + i;
                 objDummyData.BusinessPartnerCode = "BP00000" + i;
                 objDummyData.BPName = "xyz";
                 objDummyData.Configuration = "CONF000000" + i;
