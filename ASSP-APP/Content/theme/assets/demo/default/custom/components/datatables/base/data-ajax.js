@@ -175,6 +175,8 @@ var DatatableRemoteAjaxDemo = function () {
             datatable.load();
         }).val(typeof query.Status !== 'undefined' ? query.Status : '');
 
+
+
         $('#m_form_type').on('change', function () {
             // shortcode to datatable.getDataSourceParam('query');
             var query = datatable.getDataSourceQuery();
