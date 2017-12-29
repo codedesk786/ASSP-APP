@@ -54,12 +54,105 @@ var DatatableRemoteAjaxDemo = function () {
                 // sortable: 'asc', // default sort
                 filterable: false, // disable or enable filtering
                 width: 150,
-            }, {
+                },
+                {
                 field: "BPName",
                 title: "BPName",
                 width: 150,
                 
-            }]
+            },
+            {
+                field: "Configuration",
+                title: "Configuration",
+                width: 150,
+
+                },
+                {
+                    field: "ServiceLocationAddress",
+                    title: "ServiceLocationAddress",
+                    width: 150,
+
+            },
+            {
+                field: "OrderDate",
+                title: "OrderDate",
+                width: 150,
+
+                },
+                {
+                    field: "EstimatedStartDate",
+                    title: "EstimatedStartDate",
+                    width: 150,
+
+            },
+            {
+                field: "EstimatedEndDate",
+                title: "EstimatedEndDate",
+                width: 150,
+
+                },
+                {
+                    field: "Duration",
+                    title: "Duration",
+                    width: 150,
+
+            },
+            {
+                field: "ActualStartDate",
+                title: "ActualStartDate",
+                width: 150,
+
+                },
+                {
+                    field: "ActualFinishDate",
+                    title: "ActualFinishDate",
+                    width: 150,
+
+            },
+            {
+                field: "OrderStatus",
+                title: "OrderStatus",
+                width: 150,
+
+                },
+                {
+                    field: "ReasonforIntruption",
+                    title: "ReasonforIntruption",
+                    width: 150,
+
+            },
+            {
+                field: "ExpectedDeliveryDate",
+                title: "ExpectedDeliveryDate",
+                width: 150,
+
+                },
+                {
+                    field: "ServiceDepartment",
+                    title: "ServiceDepartment",
+                    width: 150,
+
+            },
+            {
+                field: "ServiceEngineer",
+                title: "ServiceEngineer",
+                width: 150,
+
+                },
+                {
+                    field: "ServiceManager",
+                    title: "ServiceManager",
+                    width: 150,
+
+            },
+            {
+                field: "ViewDocuments",
+                title: "ViewDocuments",
+                width: 150,
+
+            }
+
+            ]
         });
 
         var query = datatable.getDataSourceQuery();

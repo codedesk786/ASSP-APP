@@ -328,7 +328,7 @@ namespace ASSP_APP.Controllers
         }
         public class DummyData
         {
-            public int UserID { get; set; }
+            public int UserName { get; set; }
             public string ServiceOrders { get; set; }
             public string BusinessPartnerCode { get; set; }
             public string BPName { get; set; }
