@@ -287,11 +287,8 @@ namespace ASSP_APP.Controllers
             for (int i = 1; i < 10; i++)
             {
                 DummyData objDummyData = new DummyData();
-                if (i == 1)
-                {
-                    objDummyData.UserName = "Admin";
-                }
-
+               
+                objDummyData.UserName = "BP00000" + i;
 
                 objDummyData.ServiceOrders = "Ser000" + i;
                 objDummyData.BusinessPartnerCode = "BP00000" + i;
