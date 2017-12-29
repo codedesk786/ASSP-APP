@@ -10,7 +10,7 @@ namespace ASSP_APP.Controllers
     public class HomeController : Controller
     {
         private const string key = "qaz123!@@)(*";
-        List<Datum> objDatlist = new List<Datum>();
+        List<DummyData> objDatlist = new List<DummyData>();
         Meta objmeta = new Meta();
         public List<LoginModel> ObjLoginModel = new List<LoginModel>();
         public ActionResult Index()
@@ -108,11 +108,18 @@ namespace ASSP_APP.Controllers
         [SessionExpire]
         public ActionResult profile()
         {
-            if (Session["Username"] == null || Session["IsValid2FA"] == null || !(bool)Session["IsValid2FA"])
-            {
-                return RedirectToAction("Login");
-            }
+            //if (Session["Username"] == null || Session["IsValid2FA"] == null || !(bool)Session["IsValid2FA"])
+            //{
+            //    return RedirectToAction("Login");
+            //}
 
+            TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
+            string UserUniqueKey = (Session["UserName"].ToString() + key); //as Its a demo, I have done this way. But you should use any encrypted value here which will be unique value per user.
+            Session["UserUniqueKey"] = UserUniqueKey;
+            // This is used for enable 2factor authentication
+            var setupInfo = tfa.GenerateSetupCode("Dotnet Awesome", Session["UserName"].ToString(), UserUniqueKey, 300, 300);
+            ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+            ViewBag.SetupCode = setupInfo.ManualEntryKey;
             ViewBag.Message = "Welcome " + Session["Username"].ToString();
             return View();
         }
@@ -180,14 +187,10 @@ namespace ASSP_APP.Controllers
             return Redirect("/home/login");
         }
 
-
-
         public JsonResult LoadOrders(FormCollection frm)
         {
 
             LoadList();
-
-
 
             objmeta.page = Convert.ToInt32(frm["datatable[pagination][page]"]);
             objmeta.pages = objDatlist.ToList().Count / Convert.ToInt32(frm["datatable[pagination][perpage]"]);
@@ -195,16 +198,16 @@ namespace ASSP_APP.Controllers
             objmeta.total = objDatlist.ToList().Count;
             objmeta.sort = frm["datatable[sort][sort]"];
             objmeta.field = frm["datatable[sort][field]"];
-            List<Datum> objjson = new List<Datum>();
+            List<DummyData> objjson = new List<DummyData>();
             if (objmeta.sort == "asc")
             {
-                if (objmeta.field == "OrderID")
+                if (objmeta.field == "ServiceOrders")
                 {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.OrderID).ToList();
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.ServiceOrders).ToList();
                 }
-                else if (objmeta.field == "ShipCountry")
+                else if (objmeta.field == "BusinessPartnerCode")
                 {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.ShipCountry).ToList();
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.BusinessPartnerCode).ToList();
                 }
 
             }
@@ -212,13 +215,13 @@ namespace ASSP_APP.Controllers
             {
 
 
-                if (objmeta.field == "OrderID")
+                if (objmeta.field == "ServiceOrders")
                 {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.OrderID).ToList();
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.ServiceOrders).ToList();
                 }
-                else if (objmeta.field == "ShipCountry")
+                else if (objmeta.field == "BusinessPartnerCode")
                 {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.ShipCountry).ToList();
+                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.BusinessPartnerCode).ToList();
                 }
             }
 
@@ -232,26 +235,33 @@ namespace ASSP_APP.Controllers
 
 
         }
-
-
-
         public void LoadList()
         {
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 1; i < 5; i++)
             {
-                Datum objDatum = new Datum();
-                objDatum.RecordID = i;
-                objDatum.OrderID = "order" + i;
-                objDatum.ShipCountry = i + "Pakistan";
-                objDatlist.Add(objDatum);
-
+                DummyData objDummyData = new DummyData();
+                objDummyData.ServiceOrders = "Ser000" + i;
+               
+                objDummyData.BusinessPartnerCode = "BP00000" + i;
+                objDummyData.BPName = "xyz";
+                objDummyData.Configuration = "CONF000000" + i;
+                objDummyData.ServiceLocationAddress = "Rotterdam Holland";
+                objDummyData.OrderDate = DateTime.Now;
+                objDummyData.EstimatedStartDate = DateTime.Now;
+                objDummyData.EstimatedEndDate = DateTime.Now;
+                objDummyData.Duration = "5  hours";
+                objDummyData.ActualStartDate = DateTime.Now;
+                objDummyData.ActualFinishDate = DateTime.Now;
+                objDummyData.OrderStatus = "Free";
+                objDummyData.ReasonforIntruption = "Waiting for parts delivery from Supplier";
+                objDummyData.ExpectedDeliveryDate = DateTime.Now;
+                objDummyData.ServiceDepartment = "SER-Norway";
+                objDummyData.ServiceEngineer = "Christofer";
+                objDummyData.ServiceManager = "Ola Norman";
+                objDummyData.ViewDocuments = "www.google.com";
+                objDatlist.Add(objDummyData);
             }
-
-
-
-
-
 
         }
 
@@ -291,7 +301,7 @@ namespace ASSP_APP.Controllers
             }
             else
             {
-                
+
                 //SendEmail objSendEmail = new SendEmail { Subject = "Password Recovery" };
 
                 //objSendEmail.ReceiverAddress = obj.UserName;
@@ -316,7 +326,28 @@ namespace ASSP_APP.Controllers
             }
             return msgtype;
         }
-
+        public class DummyData
+        {
+            public int UserName { get; set; }
+            public string ServiceOrders { get; set; }
+            public string BusinessPartnerCode { get; set; }
+            public string BPName { get; set; }
+            public string Configuration { get; set; }
+            public string ServiceLocationAddress { get; set; }
+            public DateTime OrderDate { get; set; }
+            public DateTime EstimatedStartDate { get; set; }
+            public DateTime EstimatedEndDate { get; set; }
+            public string Duration { get; set; }
+            public DateTime ActualStartDate { get; set; }
+            public DateTime ActualFinishDate { get; set; }
+            public string OrderStatus { get; set; }
+            public string ReasonforIntruption { get; set; }
+            public DateTime ExpectedDeliveryDate { get; set; }
+            public string ServiceDepartment { get; set; }
+            public string ServiceEngineer { get; set; }
+            public string ServiceManager { get; set; }
+            public string ViewDocuments { get; set; }
+        }
     }
 
 }
