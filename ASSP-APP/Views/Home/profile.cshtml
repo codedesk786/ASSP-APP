@@ -1,8 +1,11 @@
 ﻿
+@using System.Web.Configuration
+@model ASSP_APP.Models.UserMetaData
 @{
     ViewBag.Title = "MyProfile";
 }
 @using System.Web.Configuration
+
 <div class="m-content">
     <div class="row">
         <div class="col-lg-3">
@@ -271,7 +274,7 @@
                                         Full Name
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="Mark Andre">
+                                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control m-input", @id = "FullName", @placeholder = "Full Name" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -279,7 +282,7 @@
                                         Occupation
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="CTO">
+                                        @Html.EditorFor(model => model.Occupation, new { htmlAttributes = new { @class = "form-control m-input", @id = "Occupation", @placeholder = "Occupation" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -287,10 +290,7 @@
                                         Company Name
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="Keenthemes">
-                                        <span class="m-form__help">
-                                            If you want your invoices addressed to a company. Leave blank to use your full name.
-                                        </span>
+                                        @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control m-input", @id = "CompanyName", @placeholder = "Company Name" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -298,7 +298,7 @@
                                         Phone No.
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="+456669067890">
+                                        @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control m-input", @id = "PhoneNo", @placeholder = "Phone No" } })
                                     </div>
                                 </div>
                                 <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
@@ -314,7 +314,7 @@
                                         Address
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="L-12-20 Vertex, Cybersquare">
+                                        @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control m-input", @id = "Address", @placeholder = "Address" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -322,7 +322,7 @@
                                         City
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="San Francisco">
+                                        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control m-input", @id = "City", @placeholder = "City" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -330,7 +330,7 @@
                                         State
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="California">
+                                        @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control m-input", @id = "State", @placeholder = "State" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -338,7 +338,7 @@
                                         Postcode
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="45000">
+                                        @Html.EditorFor(model => model.Postcode, new { htmlAttributes = new { @class = "form-control m-input", @id = "Postcode", @placeholder = "Postcode" } })
                                     </div>
                                 </div>
                                 <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
@@ -354,7 +354,7 @@
                                         Linkedin
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.linkedin.com/Mark.Andre">
+                                        @Html.EditorFor(model => model.Linkedin, new { htmlAttributes = new { @class = "form-control m-input", @id = "Linkedin" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -362,7 +362,7 @@
                                         Facebook
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.facebook.com/Mark.Andre">
+                                        @Html.EditorFor(model => model.Facebook, new { htmlAttributes = new { @class = "form-control m-input", @id = "Facebook" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -370,7 +370,7 @@
                                         Twitter
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.twitter.com/Mark.Andre">
+                                        @Html.EditorFor(model => model.Twitter, new { htmlAttributes = new { @class = "form-control m-input", @id = "Twitter" } })
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -378,7 +378,7 @@
                                         Instagram
                                     </label>
                                     <div class="col-7">
-                                        <input class="form-control m-input" type="text" value="www.instagram.com/Mark.Andre">
+                                        @Html.EditorFor(model => model.Instagram, new { htmlAttributes = new { @class = "form-control m-input", @id = "Instagrams" } })
                                     </div>
                                 </div>
                             </div>
@@ -387,7 +387,7 @@
                                     <div class="row">
                                         <div class="col-2"></div>
                                         <div class="col-7">
-                                            <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                            <button id="m_profile_update_submit" type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
                                                 Save changes
                                             </button>
                                             &nbsp;&nbsp;
@@ -412,7 +412,7 @@
                                     <span class="m-list-settings__item-control">
                                         <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                                             <label>
-                                                <input type="checkbox"  name="" onclick="OpenModal('twofact')">
+                                                <input type="checkbox" name="" onclick="OpenModal('twofact')">
                                                 <span></span>
                                             </label>
                                         </span>
@@ -555,7 +555,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                   2 Factor Authentication 
+                    2 Factor Authentication
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -581,11 +581,11 @@
                         <label for="recipient-name" class="form-control-label">
                             <img src="@ViewBag.BarcodeImageUrl" /><br />
                             @ViewBag.SetupCode
-                            
+
                         </label>
-                       
+
                     </div>
-                   
+
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -596,7 +596,7 @@
                     </button>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ namespace ASSP_APP.Controllers
         private const string key = "qaz123!@@)(*";
         List<DummyData> objDatlist = new List<DummyData>();
         Meta objmeta = new Meta();
-        public List<LoginModel> ObjLoginModel = new List<LoginModel>();
+        public List<User> ObjUserList = new List<User>();
         public ActionResult Index()
         {
 
@@ -53,7 +53,7 @@ namespace ASSP_APP.Controllers
                 login.RememberMe = false;
             }
             PopulateUsers();
-            var verifylog = ObjLoginModel.Where(c => c.Username == login.Username && c.Password == login.Password).SingleOrDefault();
+            var verifylog = ObjUserList.Where(c => c.UserName == login.Username && c.Password == login.Password).SingleOrDefault();
             if (verifylog != null)
             {
                 status = true; // show 2FA form
@@ -82,7 +82,7 @@ namespace ASSP_APP.Controllers
                 //var setupInfo = tfa.GenerateSetupCode("Dotnet Awesome", login.Username, UserUniqueKey, 300, 300);
                 //ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
                 //ViewBag.SetupCode = setupInfo.ManualEntryKey;
-                if (verifylog.Enable2fact)
+                if (verifylog.TwoFactor.Value)
                 {
                     return Content("enable2fact");
                 }
@@ -165,17 +165,18 @@ namespace ASSP_APP.Controllers
         {
 
 
-            LoginModel objLogin = new LoginModel();
-            objLogin.Username = "Admin";
+            User objLogin = new User();
+            objLogin.UserName = "BP000001";
             objLogin.Password = "Password1";
-            objLogin.Enable2fact = true;
-            ObjLoginModel.Add(objLogin);
+            objLogin.RolID = 1;
+            objLogin.TwoFactor = true;
+            ObjUserList.Add(objLogin);
 
-            LoginModel objLogin2 = new LoginModel();
-            objLogin2.Username = "admin1";
+            User objLogin2 = new User();
+            objLogin2.UserName = "BP0000002";
             objLogin2.Password = "123";
-            objLogin2.Enable2fact = false;
-            ObjLoginModel.Add(objLogin2);
+            objLogin2.TwoFactor = false;
+            ObjUserList.Add(objLogin2);
 
         }
         public ActionResult Logout()
@@ -188,6 +189,7 @@ namespace ASSP_APP.Controllers
         public JsonResult LoadOrders(FormCollection frm)
         {
 
+            string UserName = Session["UserName"].ToString();
             LoadList();
 
             objmeta.page = Convert.ToInt32(frm["datatable[pagination][page]"]);
@@ -197,32 +199,66 @@ namespace ASSP_APP.Controllers
             objmeta.sort = frm["datatable[sort][sort]"];
             objmeta.field = frm["datatable[sort][field]"];
             List<DummyData> objjson = new List<DummyData>();
-            if (objmeta.sort == "asc")
-            {
-                if (objmeta.field == "ServiceOrders")
-                {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.ServiceOrders).ToList();
-                }
-                else if (objmeta.field == "BusinessPartnerCode")
-                {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.BusinessPartnerCode).ToList();
-                }
 
+            if (Session["RoleID"].ToString() == "1")
+            {
+
+
+                if (objmeta.sort == "asc")
+                {
+                    if (objmeta.field == "ServiceOrders")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.ServiceOrders).ToList();
+                    }
+                    else if (objmeta.field == "BusinessPartnerCode")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.BusinessPartnerCode).ToList();
+                    }
+
+                }
+                else
+                {
+
+
+                    if (objmeta.field == "ServiceOrders")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.ServiceOrders).ToList();
+                    }
+                    else if (objmeta.field == "BusinessPartnerCode")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.BusinessPartnerCode).ToList();
+                    }
+                }
             }
             else
             {
+                if (objmeta.sort == "asc")
+                {
+                    if (objmeta.field == "ServiceOrders")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.ServiceOrders).Where(c => c.UserName == UserName).ToList();
+                    }
+                    else if (objmeta.field == "BusinessPartnerCode")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderBy(c => c.BusinessPartnerCode).Where(c => c.UserName == UserName).ToList();
+                    }
+
+                }
+                else
+                {
 
 
-                if (objmeta.field == "ServiceOrders")
-                {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.ServiceOrders).ToList();
+                    if (objmeta.field == "ServiceOrders")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.ServiceOrders).Where(c => c.UserName == UserName).ToList();
+                    }
+                    else if (objmeta.field == "BusinessPartnerCode")
+                    {
+                        objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.BusinessPartnerCode).Where(c => c.UserName == UserName).ToList();
+                    }
                 }
-                else if (objmeta.field == "BusinessPartnerCode")
-                {
-                    objjson = objDatlist.Skip((objmeta.page - 1) * objmeta.perpage).Take(objmeta.perpage).OrderByDescending(c => c.BusinessPartnerCode).ToList();
-                }
+
             }
-
 
             var jsonData = new
             {
@@ -240,7 +276,7 @@ namespace ASSP_APP.Controllers
             {
                 DummyData objDummyData = new DummyData();
                 objDummyData.ServiceOrders = "Ser000" + i;
-               
+
                 objDummyData.BusinessPartnerCode = "BP00000" + i;
                 objDummyData.BPName = "xyz";
                 objDummyData.Configuration = "CONF000000" + i;
@@ -292,7 +328,7 @@ namespace ASSP_APP.Controllers
         {
             string msgtype = "";
             string email = frmCollection["email"];
-            LoginModel obj = ObjLoginModel.Where(u => u.Username == email).SingleOrDefault();
+            User obj = ObjUserList.Where(u => u.Email == email).SingleOrDefault();
             if (obj == null)
             {
                 msgtype = "danger";
@@ -326,7 +362,7 @@ namespace ASSP_APP.Controllers
         }
         public class DummyData
         {
-            public int UserName { get; set; }
+            public string UserName { get; set; }
             public string ServiceOrders { get; set; }
             public string BusinessPartnerCode { get; set; }
             public string BPName { get; set; }

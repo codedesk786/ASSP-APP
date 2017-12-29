@@ -44,7 +44,7 @@ var DatatableRemoteAjaxDemo = function () {
             // columns definition
             columns: [{
                 field: "ServiceOrders",
-                title: "ServiceOrders #",
+                title: "Service Orders #",
                 // sortable: 'asc', // default sort
                 filterable: false, // disable or enable filtering
                 width: 150,
@@ -57,7 +57,7 @@ var DatatableRemoteAjaxDemo = function () {
                 },
                 {
                 field: "BPName",
-                title: "BPName",
+                title: "BP Name",
                 width: 150,
                 
             },
@@ -69,25 +69,25 @@ var DatatableRemoteAjaxDemo = function () {
                 },
                 {
                     field: "ServiceLocationAddress",
-                    title: "ServiceLocationAddress",
+                    title: "Service Location Address",
                     width: 150,
 
             },
             {
                 field: "OrderDate",
-                title: "OrderDate",
+                title: "Order Date",
                 width: 150,
 
                 },
                 {
                     field: "EstimatedStartDate",
-                    title: "EstimatedStartDate",
+                    title: "Estimated Start Date",
                     width: 150,
 
             },
             {
                 field: "EstimatedEndDate",
-                title: "EstimatedEndDate",
+                title: "Estimated EndDate",
                 width: 150,
 
                 },
@@ -99,55 +99,55 @@ var DatatableRemoteAjaxDemo = function () {
             },
             {
                 field: "ActualStartDate",
-                title: "ActualStartDate",
+                title: "Actual StartDate",
                 width: 150,
 
                 },
                 {
                     field: "ActualFinishDate",
-                    title: "ActualFinishDate",
+                    title: "Actual Finish Date",
                     width: 150,
 
             },
             {
                 field: "OrderStatus",
-                title: "OrderStatus",
+                title: "Order Status",
                 width: 150,
 
                 },
                 {
                     field: "ReasonforIntruption",
-                    title: "ReasonforIntruption",
+                    title: "Reason for Intruption",
                     width: 150,
 
             },
             {
                 field: "ExpectedDeliveryDate",
-                title: "ExpectedDeliveryDate",
+                title: "Expected Delivery Date",
                 width: 150,
 
                 },
                 {
                     field: "ServiceDepartment",
-                    title: "ServiceDepartment",
+                    title: "Service Department",
                     width: 150,
 
             },
             {
                 field: "ServiceEngineer",
-                title: "ServiceEngineer",
+                title: "Service Engineer",
                 width: 150,
 
                 },
                 {
                     field: "ServiceManager",
-                    title: "ServiceManager",
+                    title: "Service Manager",
                     width: 150,
 
             },
             {
                 field: "ViewDocuments",
-                title: "ViewDocuments",
+                title: "View Documents",
                 width: 150,
 
             }
