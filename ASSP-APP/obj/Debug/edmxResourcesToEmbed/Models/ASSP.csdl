@@ -1,13 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ASSPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ASSPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Roles" EntityType="ASSPModel.Role" />
+    <EntitySet Name="Users" EntityType="ASSPModel.User" />
+    <AssociationSet Name="FK_User_Roles" Association="ASSPModel.FK_User_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Role">
     <Key>
       <PropertyRef Name="RoleID" />
     </Key>
     <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
-    <NavigationProperty Name="Users" Relationship="Self.FK_User_Roles" FromRole="Roles" ToRole="User" />
+    <NavigationProperty Name="Users" Relationship="ASSPModel.FK_User_Roles" FromRole="Role" ToRole="User" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -37,13 +45,13 @@
     <Property Name="TwoFactor" Type="Boolean" />
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="RolID" Type="Int32" />
-    <NavigationProperty Name="Role" Relationship="Self.FK_User_Roles" FromRole="User" ToRole="Roles" />
+    <NavigationProperty Name="Role" Relationship="ASSPModel.FK_User_Roles" FromRole="User" ToRole="Role" />
   </EntityType>
   <Association Name="FK_User_Roles">
-    <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <End Type="ASSPModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="ASSPModel.User" Role="User" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Roles">
+      <Principal Role="Role">
         <PropertyRef Name="RoleID" />
       </Principal>
       <Dependent Role="User">
@@ -51,12 +59,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ASSPEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Roles" EntityType="Self.Role" />
-    <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK_User_Roles" Association="Self.FK_User_Roles">
-      <End Role="Roles" EntitySet="Roles" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

@@ -27,5 +27,7 @@ namespace ASSP_APP.Models
     
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
+        public virtual DbSet<UserSetting> UserSettings { get; set; }
     }
 }
