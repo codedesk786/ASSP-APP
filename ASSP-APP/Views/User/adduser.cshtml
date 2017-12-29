@@ -7,11 +7,11 @@
     <!-- BEGIN: Subheader -->
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
-                        <div class="mr-auto">
-            <h3 class="m-subheader__title ">
-               Add New Employee
-            </h3>
-        </div>
+            <div class="mr-auto">
+                <h3 class="m-subheader__title ">
+                    Add New Employee
+                </h3>
+            </div>
 
         </div>
     </div>
@@ -75,16 +75,17 @@
                                         User Group:
                                     </label>
                                     <div class="m-radio-inline">
-                                        <label class="m-radio m-radio--solid">
-                                            <input type="radio" name="rbtn" checked value="1">
-                                            Admin
-                                            <span></span>
-                                        </label>
-                                        <label class="m-radio m-radio--solid">
-                                            <input type="radio" name="rbtn" value="2">
-                                            User
-                                            <span></span>
-                                        </label>
+                                        @{
+                                            List<string> rbValues = (List<string>)ViewBag.RadioButtonValues;
+                                        }
+                                        @foreach (string val in rbValues)
+                                        {
+                                            <label class="m-radio m-radio--solid">
+                                                @Html.RadioButtonFor(model => model.Role, false) @val
+                                                <span></span>
+                                            </label>
+                                        }
+
                                     </div>
                                     <span class="m-form__help">
                                         Please select user group
@@ -104,10 +105,10 @@
                                         </button>
                                     </div>
                                     @*<div class="col-lg-6 m--align-right">
-                                        <button type="reset" class="btn btn-danger">
-                                            Delete
-                                        </button>
-                                    </div>*@
+                                            <button type="reset" class="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -120,5 +121,3 @@
         </div>
     </div>
 </div>
-
-

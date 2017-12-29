@@ -15,7 +15,10 @@ namespace ASSP_APP.Controllers
 
         // GET: User
         public ActionResult adduser()
+
         {
+            ViewBag.RadioButtonValues = db.Roles.Select(r => r.RoleName).ToList();
+
             return View();
         }
         public ActionResult InsertUser(string FullName, string UserName,string Password,string Address,int RoleID)
