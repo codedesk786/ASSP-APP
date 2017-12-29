@@ -59,7 +59,7 @@ namespace ASSP_APP.Controllers
                 status = true; // show 2FA form
                 message = "2FA Verification";
                 Session["UserName"] = login.UserName;
-                Session["RoleID"] = verifylog.RolID;
+                Session["RoleID"] = verifylog.RoleID;
 
                 if (login.RememberMe)
                 {
@@ -84,15 +84,15 @@ namespace ASSP_APP.Controllers
                 //var setupInfo = tfa.GenerateSetupCode("Dotnet Awesome", login.Username, UserUniqueKey, 300, 300);
                 //ViewBag.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
                 //ViewBag.SetupCode = setupInfo.ManualEntryKey;
-                if (verifylog.TwoFactor.Value)
-                {
-                    return Content("enable2fact");
-                }
-                else
-                {
+                //if (verifylog.TwoFactor.Value)
+                //{
+                //    return Content("enable2fact");
+                //}
+                //else
+                //{
 
                     return Content("success");
-                }
+                //}
 
 
 
@@ -170,8 +170,8 @@ namespace ASSP_APP.Controllers
             User objLogin = new User();
             objLogin.UserName = "BP000001";
             objLogin.Password = "Password1";
-            objLogin.RolID = 1;
-            objLogin.TwoFactor = true;
+            objLogin.RoleID = 1;
+           
             ObjUserList.Add(objLogin);
 
 
@@ -179,15 +179,13 @@ namespace ASSP_APP.Controllers
             User objLoginUserAdmin = new User();
             objLoginUserAdmin.UserName = "Admin";
             objLoginUserAdmin.Password = "admin";
-            objLoginUserAdmin.RolID = 1;
-            objLoginUserAdmin.TwoFactor = false;
+            objLoginUserAdmin.RoleID = 1;
             ObjUserList.Add(objLoginUserAdmin);
 
             User objLogin2 = new User();
             objLogin2.UserName = "BP000002";
             objLogin2.Password = "123";
-            objLogin2.RolID = 2;
-            objLogin2.TwoFactor = false;
+            objLogin2.RoleID = 2;
             ObjUserList.Add(objLogin2);
 
         }

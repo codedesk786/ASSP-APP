@@ -27,7 +27,7 @@ namespace ASSP_APP.Controllers
                 objUser.UserName = UserName;
                 objUser.Password = Password;
                 objUser.Address1 = Address;
-                objUser.RolID = RoleID;
+              
                 db.Users.Add(objUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");

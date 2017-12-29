@@ -223,8 +223,8 @@ var DatatableRemoteAjaxDemo = function () {
 }();
 
 jQuery(document).ready(function () {
-   
+
     DatatableRemoteAjaxDemo.init();
 
-    
+
 });
