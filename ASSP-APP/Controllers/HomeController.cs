@@ -38,8 +38,6 @@ namespace ASSP_APP.Controllers
             objRegistration.RememberMe = RememberME;
             return View(objRegistration);
         }
-
-
         [HttpPost]
         public ActionResult Login(LoginModel login, FormCollection frm)
         {
