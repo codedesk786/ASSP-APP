@@ -93,13 +93,13 @@ var SnippetLogin = function () {
                 data: postData,
                 success: function (response, status, xhr, $form) {
 
-                    if (response == "error") {
+                    if (response = "error") {
                         setTimeout(function () {
                             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                             showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
                         }, 2000);
                     }
-                    else if (response == "enable2fact") {
+                    else if (response = "enable2fact") {
                         $(".singin").hide();
                         $(".2fact").show();
                         $(".passcode").focus();
@@ -146,13 +146,13 @@ var SnippetLogin = function () {
                 data: postData,
                 success: function (response, status, xhr, $form) {
 
-                    if (response == "error") {
+                    if (response = "error") {
                         setTimeout(function () {
                             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                             showErrorMsg(form, 'danger', 'Incorrect authentication code.');
                         }, 2000);
                     }
-                    else if (response == "success") {
+                    else if (response = "success") {
                         location.href = '/home/dashboard';
 
                     }
@@ -247,13 +247,13 @@ var SnippetLogin = function () {
                 success: function (response, status, xhr, $form) {
                     // similate 2s delay
 
-                    if (response == "error") {
+                    if (response = "error") {
                         setTimeout(function () {
                             btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
                             showErrorMsg(form, 'danger', 'the email you enter is not exists.');
                         }, 2000);
                     }
-                    else if (response == "success") {
+                    else if (response = "success") {
 
 
                         setTimeout(function () {
