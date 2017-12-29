@@ -301,7 +301,7 @@ namespace ASSP_APP.Controllers
                 objDummyData.Duration = "5  hours";
                 objDummyData.ActualStartDate = DateTime.Now;
                 objDummyData.ActualFinishDate = DateTime.Now;
-                objDummyData.OrderStatus = "Free";
+                objDummyData.OrderStatus = "Pending";
                 objDummyData.ReasonforIntruption = "Waiting for parts delivery from Supplier";
                 objDummyData.ExpectedDeliveryDate = DateTime.Now;
                 objDummyData.ServiceDepartment = "SER-Norway";
