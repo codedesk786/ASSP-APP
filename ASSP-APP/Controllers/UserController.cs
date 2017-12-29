@@ -10,7 +10,11 @@ namespace ASSP_APP.Controllers
 {
     public class UserController : Controller
     {
+<<<<<<< HEAD
         private ASSPEntities db = new ASSPEntities();
+=======
+        private AsspDB db = new AsspDB();
+>>>>>>> 7f361729336fc9a88fcea07a5618e1092972419d
         // GET: User
         public ActionResult adduser()
         {
