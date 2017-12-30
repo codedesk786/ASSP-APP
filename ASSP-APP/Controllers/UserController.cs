@@ -96,14 +96,19 @@ namespace ASSP_APP.Controllers
                 }
 
             }
+
+            List<UserMetaData> objuserMeta = new List<UserMetaData>();
+            foreach (var item in objjson)
+            {
+                UserMetaData objUser = new UserMetaData();
+                objUser.FullName = item.FullName;
+                objUser.UserName = item.UserName;
+                objuserMeta.Add(objUser);
+            }
             var jsonData = new
             {
                 meta = objmeta,
-                data = new
-                {
-                    FullName = objjson.SingleOrDefault().FullName,
-                    UserName = objjson.SingleOrDefault().UserName
-                }
+                data= objuserMeta
             };
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
