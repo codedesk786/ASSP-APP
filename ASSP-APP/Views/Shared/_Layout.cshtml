@@ -5,7 +5,7 @@
 <!-- begin::Head -->
 <head>
     <meta charset="utf-8" />
-        <title>@ViewBag.Title | ASSP</title>
+        <title>@ViewBag.Title | A S S P</title>
     <meta name="description" content="Latest updates and statistic charts">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -80,7 +80,16 @@
     <script src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/snippets/pages/user/Profile.js" type="text/javascript"></script>
 
     }
+    else if (ViewBag.Title == "MyProfile")
+    {
 
+        <script src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/snippets/pages/user/UpdateProfile.js" type="text/javascript"></script>
+
+    }
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/sweetalert.min.js"></script>
+    <script src="~/Content/app.min.js"></script>
+    <script src="~/Content/ui-sweetalert.min.js"></script>
     <!--end::Page Snippets -->
     @*@Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

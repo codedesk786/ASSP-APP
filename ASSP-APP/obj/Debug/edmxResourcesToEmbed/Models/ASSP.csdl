@@ -2,10 +2,25 @@
 <Schema Namespace="ASSPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="ASSPEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Roles" EntityType="ASSPModel.Role" />
+    <EntitySet Name="Settings" EntityType="ASSPModel.Setting" />
     <EntitySet Name="Users" EntityType="ASSPModel.User" />
+    <EntitySet Name="UserLogs" EntityType="ASSPModel.UserLog" />
+    <EntitySet Name="UserSettings" EntityType="ASSPModel.UserSetting" />
     <AssociationSet Name="FK_User_Roles" Association="ASSPModel.FK_User_Roles">
       <End Role="Role" EntitySet="Roles" />
       <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSetting_Settings" Association="ASSPModel.FK_UserSetting_Settings">
+      <End Role="Setting" EntitySet="Settings" />
+      <End Role="UserSetting" EntitySet="UserSettings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLog_User" Association="ASSPModel.FK_UserLog_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLog" EntitySet="UserLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSetting_User" Association="ASSPModel.FK_UserSetting_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserSetting" EntitySet="UserSettings" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Role">
@@ -13,9 +28,17 @@
       <PropertyRef Name="RoleID" />
     </Key>
     <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Role1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Users" Relationship="ASSPModel.FK_User_Roles" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Setting">
+    <Key>
+      <PropertyRef Name="SettingID" />
+    </Key>
+    <Property Name="SettingID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SettingName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserSettings" Relationship="ASSPModel.FK_UserSetting_Settings" FromRole="Setting" ToRole="UserSetting" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -41,11 +64,33 @@
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="UpdatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-    <Property Name="TwoFactor" Type="Boolean" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
     <Property Name="IsActive" Type="Boolean" />
-    <Property Name="RolID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" />
     <NavigationProperty Name="Role" Relationship="ASSPModel.FK_User_Roles" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="UserLogs" Relationship="ASSPModel.FK_UserLog_User" FromRole="User" ToRole="UserLog" />
+    <NavigationProperty Name="UserSettings" Relationship="ASSPModel.FK_UserSetting_User" FromRole="User" ToRole="UserSetting" />
+  </EntityType>
+  <EntityType Name="UserLog">
+    <Key>
+      <PropertyRef Name="UserLogID" />
+    </Key>
+    <Property Name="UserLogID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int64" Nullable="false" />
+    <Property Name="LastLogedIn" Type="DateTime" Precision="3" />
+    <Property Name="LastLogout" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="ASSPModel.FK_UserLog_User" FromRole="UserLog" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UserSetting">
+    <Key>
+      <PropertyRef Name="UserSettingID" />
+    </Key>
+    <Property Name="UserSettingID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int64" Nullable="false" />
+    <Property Name="SettingID" Type="Int64" Nullable="false" />
+    <Property Name="IsEnable" Type="Boolean" />
+    <NavigationProperty Name="Setting" Relationship="ASSPModel.FK_UserSetting_Settings" FromRole="UserSetting" ToRole="Setting" />
+    <NavigationProperty Name="User" Relationship="ASSPModel.FK_UserSetting_User" FromRole="UserSetting" ToRole="User" />
   </EntityType>
   <Association Name="FK_User_Roles">
     <End Type="ASSPModel.Role" Role="Role" Multiplicity="0..1" />
@@ -55,7 +100,43 @@
         <PropertyRef Name="RoleID" />
       </Principal>
       <Dependent Role="User">
-        <PropertyRef Name="RolID" />
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSetting_Settings">
+    <End Type="ASSPModel.Setting" Role="Setting" Multiplicity="1" />
+    <End Type="ASSPModel.UserSetting" Role="UserSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Setting">
+        <PropertyRef Name="SettingID" />
+      </Principal>
+      <Dependent Role="UserSetting">
+        <PropertyRef Name="SettingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLog_User">
+    <End Type="ASSPModel.User" Role="User" Multiplicity="1" />
+    <End Type="ASSPModel.UserLog" Role="UserLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserLog">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSetting_User">
+    <End Type="ASSPModel.User" Role="User" Multiplicity="1" />
+    <End Type="ASSPModel.UserSetting" Role="UserSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserSetting">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -5,15 +5,16 @@
       <PropertyRef Name="RoleID" />
     </Key>
     <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'Mazeppa.dbo.Settings' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Settings">
-          <Property Name="SettingID" Type="bigint" />
-          <Property Name="SettingName" Type="nvarchar" MaxLength="500" />
-        </EntityType>-->
+  <EntityType Name="Settings">
+    <Key>
+      <PropertyRef Name="SettingID" />
+    </Key>
+    <Property Name="SettingID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SettingName" Type="nvarchar" MaxLength="500" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserID" />
@@ -38,17 +39,28 @@ warning 6013: The table/view 'Mazeppa.dbo.Settings' does not have a primary key 
     <Property Name="CreatedBy" Type="int" />
     <Property Name="UpdatedBy" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
-    <Property Name="UpdateDate" Type="datetime" />
-    <Property Name="TwoFactor" Type="bit" />
+    <Property Name="UpdatedDate" Type="datetime" />
     <Property Name="IsActive" Type="bit" />
-    <Property Name="RolID" Type="int" />
+    <Property Name="RoleID" Type="int" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'Mazeppa.dbo.UserSetting' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="UserSetting">
-          <Property Name="UserID" Type="bigint" />
-          <Property Name="SettingID" Type="bigint" />
-        </EntityType>-->
+  <EntityType Name="UserLog">
+    <Key>
+      <PropertyRef Name="UserLogID" />
+    </Key>
+    <Property Name="UserLogID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="bigint" Nullable="false" />
+    <Property Name="LastLogedIn" Type="datetime" />
+    <Property Name="LastLogout" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserSetting">
+    <Key>
+      <PropertyRef Name="UserSettingID" />
+    </Key>
+    <Property Name="UserSettingID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="bigint" Nullable="false" />
+    <Property Name="SettingID" Type="bigint" Nullable="false" />
+    <Property Name="IsEnable" Type="bit" />
+  </EntityType>
   <Association Name="FK_User_Roles">
     <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -57,16 +69,67 @@ warning 6013: The table/view 'Mazeppa.dbo.UserSetting' does not have a primary k
         <PropertyRef Name="RoleID" />
       </Principal>
       <Dependent Role="User">
-        <PropertyRef Name="RolID" />
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLog_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserLog" Type="Self.UserLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserLog">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSetting_Settings">
+    <End Role="Settings" Type="Self.Settings" Multiplicity="1" />
+    <End Role="UserSetting" Type="Self.UserSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Settings">
+        <PropertyRef Name="SettingID" />
+      </Principal>
+      <Dependent Role="UserSetting">
+        <PropertyRef Name="SettingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSetting_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserSetting" Type="Self.UserSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserSetting">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ASSPModelStoreContainer">
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserSetting" EntityType="Self.UserSetting" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_User_Roles" Association="Self.FK_User_Roles">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLog_User" Association="Self.FK_UserLog_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserLog" EntitySet="UserLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSetting_Settings" Association="Self.FK_UserSetting_Settings">
+      <End Role="Settings" EntitySet="Settings" />
+      <End Role="UserSetting" EntitySet="UserSetting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSetting_User" Association="Self.FK_UserSetting_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserSetting" EntitySet="UserSetting" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

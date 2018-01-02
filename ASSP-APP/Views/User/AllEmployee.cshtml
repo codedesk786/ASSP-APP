@@ -12,6 +12,37 @@
                 <h3 class="m-subheader__title ">
                     All Employees
                 </h3>
+                <button class="btn btn-primary mt-sweetalert" data-title="Do you agree to the Terms and Conditions?" data-type="warning" data-allow-outside-click="true" data-show-confirm-button="true" data-show-cancel-button="true" data-cancel-button-class="btn-danger" data-cancel-button-text="No, I do not agree" data-confirm-button-text="Yes, I agree" data-confirm-button-class="btn-info">Popup</button>
+                <div style="display:none;" id="ErrorDelete" class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="m-alert__icon">
+                        <i class="flaticon-exclamation-1"></i>
+                        <span></span>
+                    </div>
+                    <div class="m-alert__text">
+                        <strong>
+                            Warning!
+                        </strong>
+                        Some Error While Deleteing.<br />Please Try Again.
+                    </div>
+                    <div class="m-alert__close">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div style="display:none;" id="DeleteSuccess" class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-brand alert-dismissible fade show" role="alert">
+                    <div class="m-alert__icon">
+                        <i class="flaticon-exclamation-1"></i>
+                        <span></span>
+                    </div>
+                    <div class="m-alert__text">
+                        <strong>
+                            Well done!
+                        </strong>
+                        You successfully Delte this User.
+                    </div>
+                    <div class="m-alert__close">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -20,6 +51,7 @@
         <div class="m-portlet m-portlet--mobile">
             <div class="m-portlet__body">
                 <!--begin: Search Form -->
+
                 <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                     <div class="row align-items-center">
                         <div class="col-xl-8 order-2 order-xl-1">
@@ -72,6 +104,97 @@
             </div>
         </div>
     </div>
+    <!--begin::Modal-->
+    <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Update Employee
+                    </h5>
+                    <div style="width:490px;display:none;" id="UserAlreadyExists" class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-danger alert-dismissible fade show" role="alert">
+                        <div class="m-alert__icon">
+                            <i class="flaticon-exclamation-1"></i>
+                            <span></span>
+                        </div>
+                        <div class="m-alert__text">
+                            <strong>
+                                Warning!
+                            </strong>
+                            UserName Already Exists.<br />Please Try Another User Name.
+                        </div>
+                        <div class="m-alert__close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed">
+                    @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control m-input",style= "visibility: hidden; float:left;", @id = "UserID"} })
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="FullName" class="form-control-label">
+                                Full Name:
+                            </label>
+                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control m-input", @id = "FullName", @placeholder = "Enter full name" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="UserName" class="form-control-label">
+                                User Name:
+                            </label>
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control m-input", @id = "UserName", @placeholder = "Enter user name" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="Password" class="form-control-label">
+                                Password:
+                            </label>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control m-input", @id = "Password", @placeholder = "Enter password" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="Address" class="form-control-label">
+                                Address:
+                            </label>
+                            @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control m-input", @id = "Address", @placeholder = "Enter address" } })
+                        </div>
+                        <div class="form-group">
+                            <label for="Role" class="form-control-label">
+                                User Group:
+                            </label>
+                            <div class="m-radio-inline">
+                                @foreach (var val in ViewBag.RadioButtonValues)
+                                {
+                                    <label class="m-radio m-radio--solid">
+                                        <input type="radio" name="RoleID" value="@val.RoleID">
+                                        @val.RoleName
+                                        <span></span>
+                                    </label>
+                                }
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button id="UpdateEmployee" data-target="#m_modal_4" data-toggle="modal" type="button" class="btn btn-primary">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal-->
 
 </div>
+
+
+
 

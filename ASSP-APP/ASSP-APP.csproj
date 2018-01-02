@@ -210,14 +210,26 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>ASSP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Setting.cs">
+      <DependentUpon>ASSP.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
+      <DependentUpon>ASSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserLog.cs">
+      <DependentUpon>ASSP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserSetting.cs">
       <DependentUpon>ASSP.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\sweetalert.css" />
+    <Content Include="Content\sweetalert.min.js" />
     <Content Include="Content\theme\assets\app\js\dashboard.js" />
     <Content Include="Content\theme\assets\app\js\layout-builder.js" />
     <Content Include="Content\theme\assets\app\media\img\bg\bg-1.jpg" />
@@ -372,6 +384,7 @@
     <Content Include="Content\theme\assets\demo\demo2\media\img\logo\logo.png" />
     <Content Include="Content\theme\assets\snippets\pages\user\login.js" />
     <Content Include="Content\theme\assets\snippets\pages\user\Profile.js" />
+    <Content Include="Content\theme\assets\snippets\pages\user\UpdateProfile.js" />
     <Content Include="Content\theme\assets\vendors\base\fonts\flaticon\Flaticon.svg" />
     <Content Include="Content\theme\assets\vendors\base\fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="Content\theme\assets\vendors\base\fonts\line-awesome\line-awesome.svg" />
@@ -493,6 +506,7 @@
     <Content Include="Content\theme\snippets\pages\user\login-3.html" />
     <Content Include="Content\theme\snippets\pages\user\login-4.html" />
     <Content Include="Content\theme\snippets\pages\user\login-5.html" />
+    <Content Include="Content\ui-sweetalert.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -507,6 +521,7 @@
       <DependentUpon>ASSP.edmx</DependentUpon>
       <LastGenOutput>ASSP.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\bootstrap-confirmation.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -571,10 +586,10 @@
     <Content Include="Views\Shared\_QuickSideBar.cshtml" />
     <Content Include="Views\Home\profile.cshtml" />
     <Content Include="Views\User\adduser.cshtml" />
+    <Content Include="Views\User\AllEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

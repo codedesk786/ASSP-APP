@@ -14,7 +14,16 @@ namespace ASSP_APP.Models
     
     public partial class Setting
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Setting()
+        {
+            this.UserSettings = new HashSet<UserSetting>();
+        }
+    
         public long SettingID { get; set; }
         public string SettingName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserSetting> UserSettings { get; set; }
     }
 }

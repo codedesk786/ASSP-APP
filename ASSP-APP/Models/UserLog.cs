@@ -12,14 +12,13 @@ namespace ASSP_APP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserSetting
+    public partial class UserLog
     {
-        public long UserSettingID { get; set; }
+        public long UserLogID { get; set; }
         public long UserID { get; set; }
-        public long SettingID { get; set; }
-        public Nullable<bool> IsEnable { get; set; }
+        public Nullable<System.DateTime> LastLogedIn { get; set; }
+        public Nullable<System.DateTime> LastLogout { get; set; }
     
-        public virtual Setting Setting { get; set; }
         public virtual User User { get; set; }
     }
 }

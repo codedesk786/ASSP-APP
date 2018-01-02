@@ -21,7 +21,7 @@ namespace ASSP_APP.Models
         }
     
         public int RoleID { get; set; }
-        public string Role1 { get; set; }
+        public string RoleName { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

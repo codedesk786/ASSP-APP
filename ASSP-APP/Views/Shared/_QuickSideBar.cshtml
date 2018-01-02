@@ -1,4 +1,5 @@
-﻿<div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
+﻿@using System.Web.Configuration
+<div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
     <div class="m-quick-sidebar__content m--hide">
         <span id="m_quick_sidebar_close" class="m-quick-sidebar__close">
             <i class="la la-close"></i>
@@ -26,7 +27,7 @@
                     <div class="m-messenger__messages">
                         <div class="m-messenger__message m-messenger__message--in">
                             <div class="m-messenger__message-pic">
-                                <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                <img src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/app/media/img//users/user3.jpg" alt="" />
                             </div>
                             <div class="m-messenger__message-body">
                                 <div class="m-messenger__message-arrow"></div>
@@ -52,7 +53,7 @@
                         </div>
                         <div class="m-messenger__message m-messenger__message--in">
                             <div class="m-messenger__message-pic">
-                                <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                <img src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/app/media/img//users/user3.jpg" alt="" />
                             </div>
                             <div class="m-messenger__message-body">
                                 <div class="m-messenger__message-arrow"></div>
@@ -81,7 +82,7 @@
                         </div>
                         <div class="m-messenger__message m-messenger__message--in">
                             <div class="m-messenger__message-pic">
-                                <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                <img src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/app/media/img//users/user3.jpg" alt="" />
                             </div>
                             <div class="m-messenger__message-body">
                                 <div class="m-messenger__message-arrow"></div>
@@ -148,7 +149,7 @@
                         </div>
                         <div class="m-messenger__message m-messenger__message--in">
                             <div class="m-messenger__message-pic">
-                                <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                <img src="@WebConfigurationManager.AppSettings["Url"]Content/theme/assets/app/media/img//users/user3.jpg" alt="" />
                             </div>
                             <div class="m-messenger__message-body">
                                 <div class="m-messenger__message-arrow"></div>

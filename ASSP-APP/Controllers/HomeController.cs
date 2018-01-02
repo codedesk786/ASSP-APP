@@ -12,7 +12,7 @@ namespace ASSP_APP.Controllers
         private const string key = "qaz123!@@)(*";
         List<DummyData> objDatlist = new List<DummyData>();
         Meta objmeta = new Meta();
-        public List<User> ObjUserList = new List<User>();
+        private ASSPEntities db = new ASSPEntities();
         public ActionResult Index()
         {
 
@@ -52,15 +52,15 @@ namespace ASSP_APP.Controllers
             {
                 login.RememberMe = false;
             }
-            PopulateUsers();
-            var verifylog = ObjUserList.Where(c => c.UserName == login.UserName && c.Password == login.Password).SingleOrDefault();
+            //PopulateUsers();
+            var verifylog = db.Users.Where(c => c.UserName == login.UserName && c.Password == login.Password).SingleOrDefault();
             if (verifylog != null)
             {
                 status = true; // show 2FA form
                 message = "2FA Verification";
-                Session["UserName"] = login.UserName;
+                Session["UserName"] = verifylog.UserName;
                 Session["RoleID"] = verifylog.RoleID;
-
+                Session["UserID"] = verifylog.UserID;
                 if (login.RememberMe)
                 {
 
@@ -163,32 +163,32 @@ namespace ASSP_APP.Controllers
             return View();
         }
 
-        public void PopulateUsers()
-        {
+        //public void PopulateUsers()
+        //{
 
 
-            User objLogin = new User();
-            objLogin.UserName = "BP000001";
-            objLogin.Password = "Password1";
-            objLogin.RoleID = 1;
+        //    User objLogin = new User();
+        //    objLogin.UserName = "BP000001";
+        //    objLogin.Password = "Password1";
+        //    objLogin.RoleID = 1;
            
-            ObjUserList.Add(objLogin);
+        //    ObjUserList.Add(objLogin);
 
 
 
-            User objLoginUserAdmin = new User();
-            objLoginUserAdmin.UserName = "Admin";
-            objLoginUserAdmin.Password = "admin";
-            objLoginUserAdmin.RoleID = 1;
-            ObjUserList.Add(objLoginUserAdmin);
+        //    User objLoginUserAdmin = new User();
+        //    objLoginUserAdmin.UserName = "Admin";
+        //    objLoginUserAdmin.Password = "admin";
+        //    objLoginUserAdmin.RoleID = 1;
+        //    ObjUserList.Add(objLoginUserAdmin);
 
-            User objLogin2 = new User();
-            objLogin2.UserName = "BP000002";
-            objLogin2.Password = "123";
-            objLogin2.RoleID = 2;
-            ObjUserList.Add(objLogin2);
+        //    User objLogin2 = new User();
+        //    objLogin2.UserName = "BP000002";
+        //    objLogin2.Password = "123";
+        //    objLogin2.RoleID = 2;
+        //    ObjUserList.Add(objLogin2);
 
-        }
+        //}
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -335,12 +335,11 @@ namespace ASSP_APP.Controllers
             public Meta meta { get; set; }
             public List<Datum> data { get; set; }
         }
-        [HttpPost]
-        public string Forgetpassword(FormCollection frmCollection)
+        public string Forgetpassword(User user)
         {
             string msgtype = "";
-            string email = frmCollection["email"];
-            User obj = ObjUserList.Where(u => u.Email == email).SingleOrDefault();
+            string email = user.Email;
+            User obj = db.Users.Where(u => u.Email == email).SingleOrDefault();
             if (obj == null)
             {
                 msgtype = "danger";

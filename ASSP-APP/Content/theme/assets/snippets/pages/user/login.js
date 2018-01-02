@@ -222,7 +222,6 @@ var SnippetLogin = function () {
     var handleForgetPasswordFormSubmit = function () {
         $('#m_login_forget_password_submit').click(function (e) {
             e.preventDefault();
-            var postData = $('this').serialize();
             var btn = $(this);
             var form = $(this).closest('form');
 
@@ -238,11 +237,10 @@ var SnippetLogin = function () {
             if (!form.valid()) {
                 return;
             }
-
-            btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
-
+            //btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
+            var postData = $('this').serialize();
             form.ajaxSubmit({
-                url: '/home/ForgetPassword',
+                url: '/Home/ForgetPassword',
                 data: postData,
                 success: function (response, status, xhr, $form) {
                     // similate 2s delay
