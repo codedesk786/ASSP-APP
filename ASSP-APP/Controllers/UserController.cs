@@ -35,6 +35,12 @@ namespace ASSP_APP.Controllers
             objmeta.total = objDatlist.ToList().Count;
             objmeta.sort = frm["datatable[sort][sort]"];
             objmeta.field = frm["datatable[sort][field]"];
+
+            if (objmeta.sort == "" && objmeta.field == "")
+            {
+                objmeta.sort = "asc";
+                objmeta.field = "FullName";
+            }
             List<User> objjson = new List<User>();
 
             if (Session["RoleID"].ToString() == "1")

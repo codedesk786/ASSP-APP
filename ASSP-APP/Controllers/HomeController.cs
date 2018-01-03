@@ -208,6 +208,11 @@ namespace ASSP_APP.Controllers
             objmeta.total = objDatlist.ToList().Count;
             objmeta.sort = frm["datatable[sort][sort]"];
             objmeta.field = frm["datatable[sort][field]"];
+            if (objmeta.sort=="" && objmeta.field=="")
+            {
+                objmeta.sort = "asc";
+                objmeta.field = "ServiceOrders";
+            }
             List<DummyData> objjson = new List<DummyData>();
 
             if (Session["RoleID"].ToString() == "1")
@@ -282,7 +287,7 @@ namespace ASSP_APP.Controllers
         public void LoadList()
         {
 
-            for (int i = 1; i < 10; i++)
+            for (int i = 1; i < 30; i++)
             {
                 DummyData objDummyData = new DummyData();
                
