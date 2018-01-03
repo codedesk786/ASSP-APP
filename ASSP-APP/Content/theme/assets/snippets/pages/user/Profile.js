@@ -151,6 +151,7 @@ var SnippetProfile = function () {
         });
     }
     var GetAllEmployees = function () {
+        
 
         var datatable = $('.m_datatable2').mDatatable({
             // datasource definition
@@ -385,12 +386,13 @@ swal({
             if (data == "success") {
                 $("#DeleteSuccess").show();
                 setTimeout(function () { $("#DeleteSuccess").hide(); }, 5000);
-                SnippetProfile.init();
+                $("#m_form_search").trigger("keyup");
             }
             else if (data == "error") {
                 $("#ErrorDelete").show();
                 setTimeout(function () { $("#ErrorDelete").hide(); }, 5000);
-                SnippetProfile.init();
+                
+               
             }
         }
     });
