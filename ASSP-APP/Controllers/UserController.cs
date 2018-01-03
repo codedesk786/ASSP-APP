@@ -275,7 +275,6 @@ namespace ASSP_APP.Controllers
                     db.Users.Add(user);
                     db.SaveChanges();
                     message = "success";
-                    Response.Redirect("User/AllEmployee");
                 }
 
 
