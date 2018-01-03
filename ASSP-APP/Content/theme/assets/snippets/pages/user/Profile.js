@@ -89,8 +89,8 @@ var SnippetProfile = function () {
                     }
                     if (data == "success")
                     {
-                       // $('#UpdateEmployee').attr('data-target', '#m_modal_4');
-                      //  $('#UpdateEmployee').attr('data-toggle', 'modal');
+                        $('#UpdateEmployee').attr('data-target', '#m_modal_4');
+                        $('#UpdateEmployee').attr('data-toggle', 'modal');
                     }
 
                 }
@@ -233,7 +233,7 @@ var SnippetProfile = function () {
                 template: function (row) {
                     var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : 'RoleName';
 
-                    return " <a href='#' data-toggle='confirmation' id='DeleteEmployee' class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='Delete '><i  class='la flaticon-cancel'></i></a><button class='btn btn-primary' onclick=AlertDelete('"+row.UserName+"') data-title='Do you agree to the Terms and Conditions?' data-type='warning' data-allow-outside-click='true' data-show-confirm-button='true' data-show-cancel-button='true' data-cancel-button-class='btn-danger' data-cancel-button-text='No, I do not agree' data-confirm-button-text='Yes, I agree' data-confirm-button-class='btn-info'>Popup</button><a href='#' id='EditEmployee' data-toggle='modal' data-target='#m_modal_4' class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='Edit '><i class='la la-edit'></i></a>";
+                    return " <a href='#'   onclick=AlertDelete('" + row.UserName + "') data-title='Do you agree to the Terms and Conditions?' data-type='warning' data-allow-outside-click='true' data-show-confirm-button='true' data-show-cancel-button='true' data-cancel-button-class='btn-danger' data-cancel-button-text='No, I do not agree' data-confirm-button-text='Yes, I agree' data-confirm-button-class='btn-info' class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='Delete '><i  class='la flaticon-cancel'></i></a><a href='#' id='EditEmployee' data-toggle='modal' data-target='#m_modal_4' class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='Edit '><i class='la la-edit'></i></a>";
                 }
             }
 
@@ -295,32 +295,7 @@ var SnippetProfile = function () {
 
 
     };
-    var handleDeleteEmployee = function () {
-        $(".m-datatable__table").on("click", "#DeleteEmployee", function () {
-            if (confirm('Are you sure you want to delete user?')) {
-                var UserName = $(this).closest("tr").find('td:eq(1)').text();
-                //alert(UserName);
-                $.ajax({
-                    async: true,
-                    url: '/User/DeleteEmployeeByID',
-                    data: { 'UserName': UserName },
-                    success: function (data) {
-                        if (data == "success") {
-                            $("#DeleteSuccess").show();
-                            setTimeout(function () { $("#DeleteSuccess").hide(); }, 5000);
-                            GetAllEmployees();
-                        }
-                        else if (data == "error") {
-                            $("#ErrorDelete").show();
-                            setTimeout(function () { $("#ErrorDelete").hide(); }, 5000);
-                            GetAllEmployees();
-                        }
-                    }
-                });
-            } else {
-                // Do nothing!
-            }
-        });
+    var handleEditEmployee = function () {
         $(".m-datatable__table").on("click", "#EditEmployee", function () {
             var UserName = $(this).closest("tr").find('td:eq(1)').text();
             //alert(data.UserName);
@@ -353,7 +328,7 @@ var SnippetProfile = function () {
             handleUpdateProfileFormSubmit();
             handleAddUserFormSubmit();
             GetAllEmployees();
-            handleDeleteEmployee();
+            handleEditEmployee();
             handleUpdateProfileByUserID();
         }
     };
@@ -370,7 +345,7 @@ function AlertDelete(UserName) {
 
 swal({
             title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
+            text: "You want to delete this employee!",
             type: "warning",
             showCancelButton: !0,
             confirmButtonClass: "btn-warning",
