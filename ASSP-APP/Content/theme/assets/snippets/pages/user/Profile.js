@@ -375,7 +375,7 @@ swal({
             showCancelButton: !0,
             confirmButtonClass: "btn-warning",
             confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: !1
+            closeOnConfirm: 1
 }, function () {
          
     $.ajax({
