@@ -232,22 +232,14 @@ var SnippetProfile = function () {
                 template: function (row) {
                     var dropup = (row.getDatatable().getPageSize() - row.getIndex()) <= 4 ? 'dropup' : 'RoleName';
 
-                    return ' \
-                    <a href="#" data-toggle="confirmation" id="DeleteEmployee" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">\
-                        <i  class="la flaticon-cancel"></i>\
-                    </a>\
- \
-                    <button class="btn btn-primary mt-sweetalert" data-title="Do you agree to the Terms and Conditions?" data-type="warning" data-allow-outside-click="true" data-show-confirm-button="true" data-show-cancel-button="true" data-cancel-button-class="btn-danger" data-cancel-button-text="No, I do not agree" data-confirm-button-text="Yes, I agree" data-confirm-button-class="btn-info">Popup</button>\
-                       \
-                    \<a href="#" id="EditEmployee" data-toggle="modal" data-target="#m_modal_4" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">\
-                            <i class="la la-edit"></i>\
-                        </a>\
-					';
+                    return " <a href='#' data-toggle='confirmation' id='DeleteEmployee' class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='Delete '><i  class='la flaticon-cancel'></i></a><button class='btn btn-primary' onclick=AlertDelete('"+row.UserName+"') data-title='Do you agree to the Terms and Conditions?' data-type='warning' data-allow-outside-click='true' data-show-confirm-button='true' data-show-cancel-button='true' data-cancel-button-class='btn-danger' data-cancel-button-text='No, I do not agree' data-confirm-button-text='Yes, I agree' data-confirm-button-class='btn-info'>Popup</button><a href='#' id='EditEmployee' data-toggle='modal' data-target='#m_modal_4' class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='Edit '><i class='la la-edit'></i></a>";
                 }
             }
 
 
             ]
+
+             
         });
         function StatusClasses(status) {
             if (status == 'Pending') {
@@ -369,4 +361,39 @@ var SnippetProfile = function () {
 //== Class Initialization
 jQuery(document).ready(function () {
     SnippetProfile.init();
+    
+   
 });
+
+function AlertDelete(UserName) {
+
+swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonClass: "btn-warning",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: !1
+}, function () {
+         
+    $.ajax({
+        async: true,
+        url: '/User/DeleteEmployeeByID',
+        data: { 'UserName': UserName },
+        success: function (data) {
+            if (data == "success") {
+                $("#DeleteSuccess").show();
+                setTimeout(function () { $("#DeleteSuccess").hide(); }, 5000);
+                GetAllEmployees();
+            }
+            else if (data == "error") {
+                $("#ErrorDelete").show();
+                setTimeout(function () { $("#ErrorDelete").hide(); }, 5000);
+                GetAllEmployees();
+            }
+        }
+    });
+        });
+   
+}
