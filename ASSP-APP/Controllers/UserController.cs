@@ -237,7 +237,8 @@ namespace ASSP_APP.Controllers
             try
             {
                 var verifyUserName = db.Users.Where(c => c.UserID == user.UserID).SingleOrDefault().UserName;
-                if (verifyUserName != null && verifyUserName != user.UserName)
+                var CheckUserName = db.Users.Where(c => c.UserName == user.UserName).SingleOrDefault();
+                if (CheckUserName != null)
                 {
                     msg = "UserAlreadyExists";
                 }

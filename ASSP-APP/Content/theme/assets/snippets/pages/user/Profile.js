@@ -31,6 +31,7 @@ var SnippetProfile = function () {
                         $("#UserName").focus();
                     }
                     if (data == "success") {
+                        $("#m_form_search").trigger("keyup");
                         // $('#UpdateEmployee').attr('data-target', '#m_modal_4');
                         //  $('#UpdateEmployee').attr('data-toggle', 'modal');
                     }
@@ -89,6 +90,7 @@ var SnippetProfile = function () {
                     }
                     if (data == "success")
                     {
+                        $("#m_form_search").trigger("keyup");
                         $('#UpdateEmployee').attr('data-target', '#m_modal_4');
                         $('#UpdateEmployee').attr('data-toggle', 'modal');
                     }
