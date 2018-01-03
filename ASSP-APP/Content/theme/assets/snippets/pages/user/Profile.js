@@ -385,12 +385,12 @@ swal({
             if (data == "success") {
                 $("#DeleteSuccess").show();
                 setTimeout(function () { $("#DeleteSuccess").hide(); }, 5000);
-                GetAllEmployees();
+                SnippetProfile.init();
             }
             else if (data == "error") {
                 $("#ErrorDelete").show();
                 setTimeout(function () { $("#ErrorDelete").hide(); }, 5000);
-                GetAllEmployees();
+                SnippetProfile.init();
             }
         }
     });
