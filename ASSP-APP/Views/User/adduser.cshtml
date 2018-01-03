@@ -45,20 +45,26 @@
                                     <label>
                                         Full Name:
                                     </label>
-                                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control m-input", @id = "FullName", @placeholder = "Enter full name" } })
-                                    <span class="m-form__help">
-                                        Please enter full name
-                                    </span>
-                                </div>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control m-input", @id = "FullName", @placeholder = "Enter full name" } })
+
+                                        <span class="m-form__help">
+                                            Please enter full name
+                                        </span>
+                                    </div>
+                                    </div>
                                 <div class="col-lg-6">
                                     <label>
                                         User Name:
                                     </label>
-                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control m-input", @id = "UserName", @placeholder = "Enter user name" } })
-                                    <span class="m-form__help">
-                                        Please enter user name
-                                    </span>
-                                </div>
+                                    <div class="m-input-icon m-input-icon--right">
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control m-input", @id = "UserName", @placeholder = "Enter user name" } })
+
+                                        <span class="m-form__help">
+                                            Please enter user name
+                                        </span>
+                                    </div>
+                                    </div>
                             </div>
                             <div class="form-group m-form__group row">
                                 <div class="col-lg-6">

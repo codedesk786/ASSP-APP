@@ -68,12 +68,7 @@ var SnippetProfile = function () {
             });
 
             if (!form.valid()) {
-                $('#UpdateEmployee').attr('data-target', '');
-                return;
-            }
-            else
-            {
-                $('#UpdateEmployee').attr('data-target', '#m_modal_4');
+                return false;
             }
             var postData = $('this').serialize();
 
@@ -83,16 +78,17 @@ var SnippetProfile = function () {
                 success: function (data) {
 
                     if (data == "UserAlreadyExists") {
-                        $('#UpdateEmployee').attr('data-target', '');
                         $("#UserAlreadyExists").show();
                         setTimeout(function () { $("#UserAlreadyExists").hide(); }, 5000);
                         $("#UserName").focus();
+                        $('#m_modal_4').show().on('hide', function () {
+                            $('#m_modal_4').modal('show')
+                        });
                     }
                     if (data == "success")
                     {
                         $("#m_form_search").trigger("keyup");
-                        $('#UpdateEmployee').attr('data-target', '#m_modal_4');
-                        $('#UpdateEmployee').attr('data-toggle', 'modal');
+                        $('#m_modal_4').modal('hide');
                     }
 
                 }
